@@ -60,15 +60,27 @@ The easiest way to get everything running in isolation.
 
 If you received the deployment package (without source code), follow these steps:
 
-1.  Unzip the project folder.
-2.  Open a terminal inside the folder.
-3.  Run the master script:
+1.  **Unzip** the project folder.
+2.  **Open a terminal** inside the folder.
+3.  **Run the master script** (Recommended):
     ```bash
     chmod +x install.sh  # (Linux/Mac only) Grant permissions
     ./install.sh
     ```
-    *The script will load the Docker images, prompt for your API Key (if missing), and launch the application.*
+    *The script will automatically load the Docker images, prompt for your API Key (if missing), and launch the application.*
 
+#### ⚠️ Manual Configuration (Important)
+If you are **not** using the `install.sh` script and want to run `docker-compose up` manually, you must ensure your `docker-compose.yml` is pointing to the pre-loaded image, not trying to build the code.
+
+**Ensure your `docker-compose.yml` looks like this:**
+
+```yaml
+services:
+  chatbot:
+    # build: .                <-- COMMENT OUT or REMOVE this line
+    image: chatbot_image:v1   # <-- USE the name of the image from the .tar file
+    container_name: mi-chatbot-rag
+    # ... rest of configuration
 ---
 
 ### Option C: Local Development (Python)
