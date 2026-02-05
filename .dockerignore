@@ -1,0 +1,7 @@
+chatbot/
+.chatbot/
+__pycache__/
+.git/
+chroma_langchain_db/
+chatbot_installer.tar
+.env
