@@ -73,7 +73,6 @@ If you received the deployment package (without source code), follow these steps
 If you are **not** using the `install.sh` script and want to run `docker-compose up` manually, you must ensure your `docker-compose.yml` is pointing to the pre-loaded image, not trying to build the code.
 
 **Ensure your `docker-compose.yml` looks like this:**
----
 
 ```yaml
 services:
@@ -82,6 +81,7 @@ services:
     image: chatbot_image:v1   # <-- USE the name of the image from the .tar file
     container_name: mi-chatbot-rag
     # ... rest of configuration
+```
 ---
 
 ### Option C: Local Development (Python)
