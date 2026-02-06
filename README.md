@@ -27,6 +27,31 @@ By default, the system uses **Google Gemini 3 Flash** (via API) for fast, high-q
 
 ---
 
+## 🧠 Architecture & Data Flow
+
+How the system turns your text files into intelligent answers:
+
+```mermaid
+graph LR
+    subgraph Ingestion Pipeline
+        A[📄 Docs .md / .txt] --> B(📝 Text Splitter);
+        B --> C{🤖 Embeddings Model};
+        C -->|Vectors| D[(🗄️ ChromaDB)];
+    end
+
+    subgraph RAG Inference
+        E([👤 User Query]) --> C;
+        C -.->|Query Vector| D;
+        D -- "🔍 Retrieve Top-K Context" --> F(⚡ Google Gemini);
+        E -.->|Original Prompt| F;
+        F --> G([💬 Final Answer via Streamlit]);
+    end
+
+    style D fill:#ffbdbd,stroke:#333,stroke-width:2px,color:#000
+    style F fill:#c2e0ff,stroke:#333,stroke-width:2px,color:#000
+    style C fill:#fff5cc,stroke:#333,color:#000```
+    
+
 ## 🚀 Installation & Usage
 
 You have three ways to run this project:
