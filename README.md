@@ -45,22 +45,6 @@ How the system turns your text files into intelligent answers:
 
 How the system turns your text files into intelligent answers:
 
-```mermaid
-graph LR
-    subgraph Ingestion [Ingesta de Datos]
-        A[📄 Docs .md / .txt] --> B(📝 Splitter)
-        B --> C{🤖 Embeddings}
-        C -->|Vectores| D[(🗄️ ChromaDB)]
-    end
-
-    subgraph Inference [RAG + Gemini]
-        E([👤 User Query]) --> C
-        C -.->|Vector| D
-        D -- "🔍 Contexto" --> F(⚡ Gemini)
-        E -.->|Prompt| F
-        F --> G([💬 Respuesta])
-    end
-
 1.  **Ingestion:** Documents (`.txt`, `.md`) are split into chunks.
 2.  **Embedding:** Text chunks are converted into vectors using a specialized model.
 3.  **Storage:** Vectors are stored in **ChromaDB**.
