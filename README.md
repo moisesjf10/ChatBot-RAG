@@ -3,13 +3,12 @@
 > **Your Intelligent Document Assistant.**
 > Chat with your own documents (TXT, MD) with zero hallucinations, powered by advanced AI.
 
-<div align="center">
+
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat&logo=python)
 ![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red?style=flat&logo=streamlit)
 ![Docker](https://img.shields.io/badge/Deployment-Docker-2496ED?style=flat&logo=docker)
 ![LangChain](https://img.shields.io/badge/AI-LangChain-green?style=flat)
 ![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-orange?style=flat&logo=google)
-</div>
 
 ## 📋 Description
 
@@ -42,7 +41,25 @@ The application features a clean "Dark Mode" interface with a sidebar for managi
 
 How the system turns your text files into intelligent answers:
 
-![Architecture Diagram](https://mermaid.ink/img/pako:eNptkU9PwzAMxb_KylMnoA10B0hM-AMcEAdcpm6iNmnSxEnoqOq7k7ZddkB8sZ_f8_Ozd2ClM8BAq8WvxgmD1sW91sg6-2a4QW_h9bXBwzV8vD3D4x20H2C9ht-fsCng7QzOQAuT0WagR4tWmejQYj_y6DqM0eOQx-E85PHE4yTkkcRjEvKY4DEJ2WvR44DHc49DHj0eBzzG-e-wL1F5bLHGXjW2smhVp0x0sZ-M0sgaf1O40sqiN4r-08oO00Q5Z2SjLJaF1kX2k9F6tOqC_v2Qo0bJyjR8Gk7y5_I36n5h8wUqcmO0?type=png)
+## 🧠 Architecture & Data Flow
+
+How the system turns your text files into intelligent answers:
+
+```mermaid
+graph LR
+    subgraph Ingestion [Ingesta de Datos]
+        A[📄 Docs .md / .txt] --> B(📝 Splitter)
+        B --> C{🤖 Embeddings}
+        C -->|Vectores| D[(🗄️ ChromaDB)]
+    end
+
+    subgraph Inference [RAG + Gemini]
+        E([👤 User Query]) --> C
+        C -.->|Vector| D
+        D -- "🔍 Contexto" --> F(⚡ Gemini)
+        E -.->|Prompt| F
+        F --> G([💬 Respuesta])
+    end
 
 1.  **Ingestion:** Documents (`.txt`, `.md`) are split into chunks.
 2.  **Embedding:** Text chunks are converted into vectors using a specialized model.
