@@ -3,11 +3,13 @@
 > **Your Intelligent Document Assistant.**
 > Chat with your own documents (TXT, MD) with zero hallucinations, powered by advanced AI.
 
+<div align="center">
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=flat&logo=python)
 ![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-red?style=flat&logo=streamlit)
 ![Docker](https://img.shields.io/badge/Deployment-Docker-2496ED?style=flat&logo=docker)
 ![LangChain](https://img.shields.io/badge/AI-LangChain-green?style=flat)
 ![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-orange?style=flat&logo=google)
+</div>
 
 ## 📋 Description
 
@@ -27,30 +29,28 @@ By default, the system uses **Google Gemini 3 Flash** (via API) for fast, high-q
 
 ---
 
+## 📸 Demo & Interface
+
+The application features a clean "Dark Mode" interface with a sidebar for managing your Knowledge Base.
+
+![Demo Screenshot](./demo-screenshot.png)
+*Example: The bot answering questions about "Alice in Wonderland" and citing the specific source file.*
+
+---
+
 ## 🧠 Architecture & Data Flow
 
 How the system turns your text files into intelligent answers:
 
-```mermaid
-graph LR
-    subgraph Ingestion Pipeline
-        A[📄 Docs .md / .txt] --> B(📝 Text Splitter);
-        B --> C{🤖 Embeddings Model};
-        C -->|Vectors| D[(🗄️ ChromaDB)];
-    end
+![Architecture Diagram](https://mermaid.ink/img/pako:eNptkU9PwzAMxb_KylMnoA10B0hM-AMcEAdcpm6iNmnSxEnoqOq7k7ZddkB8sZ_f8_Ozd2ClM8BAq8WvxgmD1sW91sg6-2a4QW_h9bXBwzV8vD3D4x20H2C9ht-fsCng7QzOQAuT0WagR4tWmejQYj_y6DqM0eOQx-E85PHE4yTkkcRjEvKY4DEJ2WvR44DHc49DHj0eBzzG-e-wL1F5bLHGXjW2smhVp0x0sZ-M0sgaf1O40sqiN4r-08oO00Q5Z2SjLJaF1kX2k9F6tOqC_v2Qo0bJyjR8Gk7y5_I36n5h8wUqcmO0?type=png)
 
-    subgraph RAG Inference
-        E([👤 User Query]) --> C;
-        C -.->|Query Vector| D;
-        D -- "🔍 Retrieve Top-K Context" --> F(⚡ Google Gemini);
-        E -.->|Original Prompt| F;
-        F --> G([💬 Final Answer via Streamlit]);
-    end
+1.  **Ingestion:** Documents (`.txt`, `.md`) are split into chunks.
+2.  **Embedding:** Text chunks are converted into vectors using a specialized model.
+3.  **Storage:** Vectors are stored in **ChromaDB**.
+4.  **Retrieval:** When you ask a question, the system searches for the most similar chunks.
+5.  **Generation:** Gemini receives the question + the retrieved chunks to formulate the answer.
 
-    style D fill:#ffbdbd,stroke:#333,stroke-width:2px,color:#000
-    style F fill:#c2e0ff,stroke:#333,stroke-width:2px,color:#000
-    style C fill:#fff5cc,stroke:#333,color:#000```
-    
+---
 
 ## 🚀 Installation & Usage
 
